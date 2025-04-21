@@ -40,6 +40,13 @@ nnoremap <S-Tab> :bprevious<CR>
 nnoremap <C-n> :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
+" Delete line and discard it to black hole register
+nnoremap <leader>d "_dd<CR>
+
+" Move 10 lines up or down with ctrl + up down arrows
+nnoremap <C-Up> 6k
+nnoremap <C-Down> 6j
+
 if exists("g:neovide")
   " Use Ctrl+Shift+V to paste system clipboard into the command-line
   cnoremap <C-S-v> <C-R>+
@@ -62,6 +69,9 @@ Plug 'preservim/nerdtree'
 
 " Nice colors I guess
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
+" Ricing status bar
+Plug 'nvim-lualine/lualine.nvim'
 
 " Dependencies for nvim-cmp, autocomplete plugin https://github.com/hrsh7th/nvim-cmp
 Plug 'neovim/nvim-lspconfig'
@@ -150,3 +160,48 @@ EOF
 " Disable all LSP diagnostics
 
 lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+
+" ------------------------ Lualine config --------------------------------
+lua << END
+require('lualine').setup {
+  options = {
+    icons_enabled = false,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{'filename', path=1}},
+    lualine_x = {},
+    lualine_y = {'buffers'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {{'filename', path=1}},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+END
