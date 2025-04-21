@@ -24,7 +24,7 @@ fi
 # Set up Neovim config
 echo "Setting up Neovim config directory..."
 mkdir -p ~/.config/nvim
-ln -sf init.vim ~/.config/nvim/init.vim
+ln -sf "$(pwd)/init.vim" ~/.config/nvim/init.vim
 echo "init.vim linked to config."
 
 
