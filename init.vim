@@ -18,6 +18,27 @@ autocmd VimEnter * colorscheme tokyonight-moon
 " Start NERDTree and put the cursor back in the other window.
 autocmd VimEnter * NERDTree | wincmd p
 
+
+if system('uname -r') =~? 'microsoft'
+  " Download win32yank.exe and place it in your PATH
+  let g:clipboard = {
+        \   'name': 'win32yank-wsl',
+        \   'copy': {
+        \      '+': 'win32yank.exe -i --crlf',
+        \      '*': 'win32yank.exe -i --crlf',
+        \    },
+        \   'paste': {
+        \      '+': 'win32yank.exe -o --lf',
+        \      '*': 'win32yank.exe -o --lf',
+        \   },
+        \   'cache_enabled': 0,
+        \ }
+
+  set clipboard=unnamedplus
+
+  " The TextYankPost autocmd isn't needed with win32yank as it handles sync automatically
+endif
+
 " ------------------------ Key bindings --------------------------------
 
 " Reload the neovim init.vim file
@@ -31,7 +52,7 @@ nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tc :tabclose<CR>
 
 " Switch buffers & force close buffers
-nnoremap <leader>c :bdelete!<CR>
+nnoremap <leader>c :bp\|bd# <CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
