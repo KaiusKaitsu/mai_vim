@@ -35,8 +35,6 @@ if system('uname -r') =~? 'microsoft'
         \ }
 
   set clipboard=unnamedplus
-
-  " The TextYankPost autocmd isn't needed with win32yank as it handles sync automatically
 endif
 
 " ------------------------ Key bindings --------------------------------
@@ -64,9 +62,9 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 " Delete line and discard it to black hole register
 nnoremap <leader>d "_dd<CR>
 
-" Move 10 lines up or down with ctrl + up down arrows
-nnoremap <C-Up> 6k
-nnoremap <C-Down> 6j
+" Move 6 lines up or down with ctrl + up down arrows
+noremap <C-Up> 6k
+noremap <C-Down> 6j
 
 if exists("g:neovide")
   " Use Ctrl+Shift+V to paste system clipboard into the command-line
