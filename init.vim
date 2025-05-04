@@ -42,6 +42,9 @@ endif
 " Reload the neovim init.vim file
 nnoremap <leader>re :source $MYVIMRC <CR>
 
+" Write file with leader
+nnoremap <leader>w :w<CR>
+
 " Escape terminal mode with Esc
 :tnoremap <Esc> <C-\><C-n>
 
